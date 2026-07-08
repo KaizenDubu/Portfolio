@@ -30,16 +30,20 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
     --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
+    --border: #ececec;
+    --code-bg: #9295ad;
+    --accent: #ffffff;
+    --accent-bg: rgba(210, 210, 210, 0.15);
+    --accent-border: rgba(255, 255, 255, 0.812);
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
@@ -52,6 +56,14 @@
 
 body {
   margin: 0;
+  /* Replace 'your-background-image.png' with the actual name of your file */
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* This makes the background stay in place while you scroll */
+  background-attachment: fixed;
+  cursor: none;
 }
 
 #root {
@@ -59,7 +71,6 @@ body {
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -93,6 +104,11 @@ h2 {
 }
 p {
   margin: 0;
+}
+
+/* Ensure the custom cursor is used everywhere */
+a, button {
+  cursor: none;
 }
 
 code,
