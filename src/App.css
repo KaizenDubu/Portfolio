@@ -85,10 +85,103 @@ button:hover ~ .cursor-moon {}
 
 /* Override for the home section to align content to the left */
 #home.placeholder-section {
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+@media (max-width: 1024px) {
+  #home.placeholder-section {
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+  }
+}
+
+.home-main-content {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start; /* Changed from 'center' to 'flex-start' */
+  align-items: center;
 }
 .home-content {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* This will center the profile picture */
+}
+
+.home-content > h1, .home-content > p, .home-content > .home-buttons {
+  align-self: flex-start; /* This aligns the text and buttons back to the left */
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  align-self: flex-start; /* Aligns the icon group to the left */
+}
+
+.social-icons a {
+  color: var(--text);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+  color: var(--text-h);
+  transform: translateY(-2px);
+}
+.profile-picture-box {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* This makes the container a circle */
+  overflow: hidden; /* This crops the image to the container's shape */
+  margin-bottom: 0.1rem; /* Adds space between the picture and your name */
+  border: 3px solid var(--accent-border);
+  box-shadow: var(--shadow);
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the box without distortion */
+  object-position: center 25%; /* This adjusts the image to show the upper part (chest to head) */
+  transform: scale(1.5); /* Zooms the image to 150% of its size */
+}
+
+@media (max-width: 1024px) {
+  /* The new styles for .home-content already handle this, so this media query is no longer needed for it. */
+}
+
+.about-me-box {
+  flex: 1;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+
+  /* --- CONTROLLING OPACITY --- */
+  /* The original background is var(--social-bg), which is an rgba color with 0.5 opacity. */
+  /* You can change it to a different color and opacity. Here it's set to a semi-transparent black (0.7 opacity). */
+  /* In dark mode, you might want a semi-transparent white. The variables handle this automatically. */
+  background-color: rgba(44, 45, 51, 0.7); /* Example for dark mode */
+
+  /* --- CONTROLLING POSITION --- */
+  /* You can use 'position: relative' to nudge the box from its default spot. */
+  position: relative;
+  right: -20px; /* Moves the box 20px to the right */
+  top: -20px; /* Moves the box 20px up */
+}
+
+.about-me-box h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  .about-me-box {
+    max-width: 100%;
+  }
 }
 .home-buttons {
   display: flex;
