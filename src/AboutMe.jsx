@@ -1,9 +1,9 @@
 import React from 'react';
 import profilePic from './assets/736206968_1021461003602371_257057879948685392_n-removebg-preview.png';
 
-function Home() {
+function AboutMe() {
   return (
-    <section id="home" className="placeholder-section">
+    <section id="home" className="placeholder-section"> {/* The ID is 'home' which matches our nav logic */}
       <div className="home-main-content">
         <div className="home-content">
           <div className="profile-picture-box">
@@ -35,4 +35,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default AboutMe;

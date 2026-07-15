@@ -1,11 +1,13 @@
+/* Styles for the header section that contains the navigation. */
 .header {
   width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 1rem 0;
+  position: sticky; /* Makes the header stick to the top of the viewport when scrolling. */
+  top: 0; /* Positions the sticky header at the very top. */
+  z-index: 10; /* Ensures the header stays on top of other content during scroll. */
+  padding: 1rem 0; /* Adds some vertical padding. */
 }
 
+/* Styles for the navigation bar container. */
 .nav {
   position: relative;
   display: flex;
@@ -13,10 +15,10 @@
   align-items: center;
   padding: 0.75rem 1.5rem;
   max-width: 1126px;
-  margin: 0 auto;
-  background-color: var(--social-bg);
-  border-radius: 9999px;
-  width: fit-content;
+  margin: 0 auto; /* Centers the nav bar horizontally. */
+  background-color: var(--social-bg); /* Sets a semi-transparent background color from a CSS variable. */
+  border-radius: 9999px; /* Creates a "pill" shape by using a very large border-radius. */
+  width: fit-content; /* Makes the container only as wide as its content. */
 }
 
 .nav-list {
@@ -27,12 +29,14 @@
   padding: 0;
 }
 
+/* Styles for individual navigation links. */
 .nav-link {
-  color: var(--text);
+  color: var(--text); /* Sets the default text color from a CSS variable. */
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s; /* Smoothly transitions the color change on hover/active. */
 }
 
+/* Styles for the active or hovered navigation link. */
 .nav-link.active,
 .nav-link:hover,
 .nav-link.active:hover {
@@ -42,6 +46,7 @@
     0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+/* Base styles for the two custom cursor elements. */
 .cursor-moon,
 .cursor-glow {
   position: fixed;
@@ -52,6 +57,7 @@
   z-index: 9999;
 }
 
+/* The smaller, solid part of the custom cursor. */
 .cursor-moon {
   width: 20px;
   height: 20px;
@@ -59,11 +65,13 @@
   box-shadow: 0 0 0 0 white; /* Initial state for transition */
 }
 
+/* When the cursor is over a nav link, this class is added via JavaScript to create a crescent shape. */
 .cursor-moon.crescent {
   background-color: transparent;
   box-shadow: -7px 7px 0 -2px #F0C420; /* Creates the crescent shape */
 }
 
+/* The larger, blurred part of the custom cursor that creates a glow effect. */
 .cursor-glow {
   width: 100px;
   height: 100px;
@@ -72,9 +80,13 @@
   filter: blur(20px);
 }
 
+/* This ruleset is currently empty and has no effect. 
+   The logic to change the cursor's appearance is handled in App.jsx by adding/removing the 'crescent' class.
+   This CSS selector also wouldn't work as intended because the cursor elements are not siblings of the `a` or `button` tags in the HTML structure. */
 a:hover ~ .cursor-moon,
 button:hover ~ .cursor-moon {}
 
+/* A general-purpose class for sections that should take up the full viewport height. */
 .placeholder-section {
   height: 100vh;
   display: flex;
@@ -83,7 +95,7 @@ button:hover ~ .cursor-moon {}
   flex-direction: column; /* Ensure content inside stacks vertically */
 }
 
-/* Override for the home section to align content to the left */
+/* Specific layout overrides for the home section. */
 #home.placeholder-section {
   flex-direction: row;
   justify-content: center;
@@ -92,6 +104,7 @@ button:hover ~ .cursor-moon {}
   padding: 0 2rem;
 }
 
+/* On smaller screens (like tablets and phones), stack the home section content vertically. */
 @media (max-width: 1024px) {
   #home.placeholder-section {
     flex-direction: column;
@@ -100,22 +113,27 @@ button:hover ~ .cursor-moon {}
   }
 }
 
+/* The main content container within the home section. */
 .home-main-content {
-  flex: 1;
+  flex: 1; /* Allows this container to grow and take up available space. */
   display: flex;
-  justify-content: flex-start; /* Changed from 'center' to 'flex-start' */
+  justify-content: flex-start; /* Aligns its children (home-content) to the start (left). */
   align-items: center;
 }
+
+/* A flex container for the content on the left side of the home page (picture, name, title, etc.). */
 .home-content {
   display: flex;
   flex-direction: column;
   align-items: center; /* This will center the profile picture */
 }
 
+/* Aligns the text and buttons to the left, overriding the 'align-items: center' from the parent. */
 .home-content > h1, .home-content > p, .home-content > .home-buttons {
   align-self: flex-start; /* This aligns the text and buttons back to the left */
 }
 
+/* Container for the social media icons. */
 .social-icons {
   display: flex;
   gap: 1.5rem;
@@ -123,15 +141,18 @@ button:hover ~ .cursor-moon {}
   align-self: flex-start; /* Aligns the icon group to the left */
 }
 
+/* Styling for individual social media icon links. */
 .social-icons a {
   color: var(--text);
   transition: color 0.3s, transform 0.3s;
 }
 
+/* Hover effect for social media icons. */
 .social-icons a:hover {
   color: var(--text-h);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* Lifts the icon slightly on hover. */
 }
+/* The circular container for the profile picture. */
 .profile-picture-box {
   width: 150px;
   height: 150px;
@@ -142,6 +163,7 @@ button:hover ~ .cursor-moon {}
   box-shadow: var(--shadow);
 }
 
+/* The profile picture image itself. */
 .profile-picture {
   width: 100%;
   height: 100%;
@@ -150,11 +172,13 @@ button:hover ~ .cursor-moon {}
   transform: scale(1.5); /* Zooms the image to 150% of its size */
 }
 
+/* This media query is empty and can be safely removed. */
 @media (max-width: 1024px) {
   /* The new styles for .home-content already handle this, so this media query is no longer needed for it. */
 }
 
 .about-me-box {
+  /* This is the box on the right side of the home page containing the "About Me" text. */
   flex: 1;
   max-width: 500px;
   padding: 2rem;
@@ -174,11 +198,13 @@ button:hover ~ .cursor-moon {}
   top: -20px; /* Moves the box 20px up */
 }
 
+/* Removes the default top margin from the h2 element inside the about-me-box. */
 .about-me-box h2 {
   margin-top: 0;
 }
 
 @media (max-width: 1024px) {
+  /* On smaller screens, allow the about-me box to take the full width. */
   .about-me-box {
     max-width: 100%;
   }
@@ -188,6 +214,8 @@ button:hover ~ .cursor-moon {}
   gap: 1rem;
   margin-top: 24px;
 }
+
+/* Styling for the "View Projects" and "Download my CV" buttons. */
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -198,14 +226,23 @@ button:hover ~ .cursor-moon {}
   text-decoration: none;
   transition: border-color 0.3s;
 }
+
+/* Changes the border color on hover for a subtle effect. */
 .counter:hover {
   border-color: var(--accent);
 }
+
+/* Adds a visible outline when the button is focused using the keyboard (for accessibility). */
 .counter:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
+/* The following styles (.hero, #center, #next-steps, etc.) appear to be from the default 
+   Vite+React template. They are not currently being used by your components (App.jsx, Home.jsx).
+   You can safely remove them if you don't plan to use them. */
+
+/* This uses nested CSS syntax, which might require a preprocessor like Sass/SCSS or a PostCSS plugin. Standard CSS does not support this. */
 .hero {
   position: relative;
 
@@ -245,6 +282,7 @@ button:hover ~ .cursor-moon {}
   }
 }
 
+/* This uses nested CSS syntax (@media inside a rule), which is now supported in modern browsers. */
 #center {
   display: flex;
   flex-direction: column;
@@ -259,6 +297,7 @@ button:hover ~ .cursor-moon {}
   }
 }
 
+/* This uses the CSS nesting selector `&`, which is now supported in modern browsers. */
 #next-steps {
   display: flex;
   border-top: 1px solid var(--border);
@@ -350,6 +389,7 @@ button:hover ~ .cursor-moon {}
   }
 }
 
+/* This uses the CSS nesting selector `&`, which is now supported in modern browsers. */
 .ticks {
   position: relative;
   width: 100%;
@@ -369,5 +409,285 @@ button:hover ~ .cursor-moon {}
   &::after {
     right: 0;
     border-right-color: var(--border);
+  }
+}
+
+/* Styles for the main projects section container */
+.projects-section {
+  min-height: 100vh; /* Ensures the section takes at least the full screen height */
+  padding: 4rem 2rem; /* Adds vertical and horizontal padding */
+  display: flex;
+  flex-direction: column;
+  align-items: normal; /* Overrides placeholder-section's align-items: center */
+  justify-content: flex-start; /* Overrides placeholder-section's justify-content: center */
+}
+
+/* Header container for the title and project navigation */
+.projects-header {
+  display: flex;
+  justify-content: space-between; /* Pushes title to the left and nav to the right */
+  align-items: flex-end; /* Aligns items to the bottom edge */
+  width: 100%;
+  margin-bottom: 3rem; /* Space between header and project grid */
+  border-bottom: 1px solid var(--border); /* A subtle line to separate the header */
+  padding-bottom: 1.5rem;
+}
+
+/* Container for the "Portfolio" title and subtitle */
+.portfolio-title-container {
+  text-align: left;
+}
+
+.portfolio-title {
+  font-family: 'Times New Roman', Times, serif; /* Sets the font as requested */
+  font-size: 3rem; /* Makes the title larger */
+  margin: 0;
+  color: var(--text-h);
+}
+
+/* Styling for the project filter navigation */
+.project-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.project-nav button {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.project-nav button:hover,
+.project-nav button.active {
+  color: var(--text-h);
+  background-color: var(--social-bg);
+}
+
+/* Grid container for the project cards */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Creates a responsive grid */
+  gap: 2rem; /* Space between grid items */
+  width: 100%;
+}
+
+/* Placeholder styling for the project cards */
+.project-card {
+  background-color: var(--social-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  height: 250px; /* Fixed height for the placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px); /* Lifts the card slightly on hover */
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+/* Styles for the main contact section container */
+.contact-section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+  justify-content: flex-start;
+}
+
+/* This rule specifically targets the header in the contact section to remove the bottom border and adjust spacing. */
+.contact-section .projects-header {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 2rem;
+
+  /* --- MANUAL POSITIONING CONTROLS --- */
+  position: relative;
+  /* Adjust this 'top' value to move the header up or down */
+  /* A negative value moves it up, a positive value moves it down. */
+  top: 8rem;
+}
+
+/* Container for the two-column layout (info and form) */
+.contact-content-area {
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+  flex-grow: 1; /* Allows this container to grow and fill the remaining vertical space */
+  align-items: flex-start; /* This aligns the items to the top of the container. */
+}
+
+/* Left column: Contact info with icons */
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  max-width: 300px;
+  align-self: stretch; /* This allows the container to stretch vertically, enabling justify-content to work. */
+  
+  /* By applying the same relative positioning as the form, we can align them. */
+  position: relative;
+  top: -3rem; /* This should match the 'top' value of .contact-form-container */
+  left: 0; /* You can adjust this if you need horizontal nudging */
+}
+/* A flexible spacer element to push content apart. */
+.contact-spacer {
+  flex-grow: 1; /* This makes the spacer take up all available empty space */
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.contact-info-item svg {
+  color: var(--accent);
+  flex-shrink: 0; /* Prevents icons from shrinking */
+}
+
+/* Right column: The form container */
+.contact-form-container {
+  flex-shrink: 0; /* Prevents the form from shrinking */
+  background-color: transparent; /* Makes the outer container invisible */
+  border: none; /* Removes the outer border */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: none; /* Removes the outer shadow */
+  width: 550px;
+  
+  /* --- MANUAL POSITIONING CONTROLS --- */
+  
+  /* This allows you to "nudge" the element from its default position. */
+  position: relative;
+  
+  /* Adjust these values to move the form around: */
+  /* Positive 'top' moves it down, negative moves it up. */
+  /* Positive 'left' moves it right, negative moves it left. */
+  top: -3rem; 
+  left: 7rem;
+}
+
+/* The form itself, using a grid for layout */
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 1.5rem;
+}
+
+/* Styling for the "Get in Touch" title inside the form */
+.form-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 40px; /* Matches the main .portfolio-title size */
+  text-align: left;
+  margin: 0 0 -10px; /* Space0; /* Resets default margin and adds space below */
+  line-height: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Makes an element span both columns of the grid */
+.form-group-full {
+  grid-column: 1 / -1; /* Span from the first to the last column line */
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  margin-bottom: 0.5rem;
+  color: var(--text-h);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--accent); /* Use the accent color (white in dark mode) for the border */
+  border-radius: 8px;
+  background-color: transparent; /* Make the input background transparent */
+  color: var(--text);
+  font-size: 1rem;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+/* Make placeholder text more visible on the transparent background */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text);
+}
+
+.submit-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent);
+  color: var(--bg);
+  font-size: 1rem;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+.submit-button:hover {
+  opacity: 0.85;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+  /* Reset the manual positioning for the contact header on small screens */
+  .contact-section .projects-header {
+    top: 0;
+  }
+
+  .contact-content-area {
+    flex-direction: column; /* Stack columns vertically */
+    align-items: center; /* Center the items now that they are in a column */
+  }
+
+  .contact-info {
+    max-width: 100%;
+    flex-direction: row; /* Lay out info items horizontally */
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    position: static; /* Reset positioning */
+    height: auto; /* Let height be automatic */
+  }
+
+  .contact-form-container {
+    position: static; /* Reset positioning */
+    width: 100%; /* Allow form to take full width */
+  }
+  .contact-form {
+    grid-template-columns: 1fr; /* Single column for form inputs */
+  }
+  .form-group-full {
+    grid-column: 1; /* Reset column span */
   }
 }

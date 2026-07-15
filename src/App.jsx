@@ -2,10 +2,18 @@ import { useState, useEffect, useRef } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
-import Home from './Home.jsx';
+import AboutMe from './AboutMe.jsx';
 import Project from './Project.jsx';
 import Experience from './Experience.jsx';
 import Contact from './Contact.jsx';
+
+// This object maps the section ID to the text you want to display in the navigation.
+const sectionDisplayNames = {
+  home: 'About Me',
+  projects: 'Projects',
+  experience: 'Experience',
+  contact: 'Contact',
+};
 
 function App() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
@@ -61,7 +69,7 @@ function App() {
                   href={`#${section}`}
                   className={`nav-link ${activeSection === section ? 'active' : ''}`}
                 >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                  {sectionDisplayNames[section]}
                 </a>
               </li>
             ))}
@@ -69,7 +77,7 @@ function App() {
         </nav>
       </header>
       <main>
-        <Home />
+        <AboutMe />
         <Project />
         <Experience />
         <Contact />
