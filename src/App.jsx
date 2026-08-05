@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 import AboutMe from './AboutMe.jsx';
 import Project from './Project.jsx';
 import Experience from './Experience.jsx';
 import Contact from './Contact.jsx';
+
+const sections = ['home', 'projects', 'experience', 'contact'];
 
 // This object maps the section ID to the text you want to display in the navigation.
 const sectionDisplayNames = {
@@ -19,7 +19,6 @@ function App() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isNavHover, setIsNavHover] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const sections = ['home', 'projects', 'experience', 'contact'];
 
   useEffect(() => {
     const handleMouseMove = (e) => {
