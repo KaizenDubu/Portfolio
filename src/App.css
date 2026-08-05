@@ -4,26 +4,16 @@
   position: sticky; /* Makes the header stick to the top of the viewport when scrolling. */
   top: 0; /* Positions the sticky header at the very top. */
   z-index: 10; /* Ensures the header stays on top of other content during scroll. */
-  padding: 1rem 0; /* Adds some vertical padding. */
+  padding: 2rem 1.25rem 0;
+  box-sizing: border-box;
 }
 
-/* Styles for the navigation bar container. */
-.nav {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  max-width: 1126px;
-  margin: 0 auto; /* Centers the nav bar horizontally. */
-  background-color: var(--social-bg); /* Sets a semi-transparent background color from a CSS variable. */
-  border-radius: 9999px; /* Creates a "pill" shape by using a very large border-radius. */
-  width: fit-content; /* Makes the container only as wide as its content. */
-}
 
 .nav-list {
   display: flex;
-  gap: 2rem;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  justify-content: center;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -32,8 +22,16 @@
 /* Styles for individual navigation links. */
 .nav-link {
   color: var(--text); /* Sets the default text color from a CSS variable. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  line-height: 1;
   text-decoration: none;
-  transition: color 0.3s; /* Smoothly transitions the color change on hover/active. */
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
 /* Styles for the active or hovered navigation link. */
@@ -41,50 +39,14 @@
 .nav-link:hover,
 .nav-link.active:hover {
   color: var(--text-h);
-  text-shadow:
-    0 0 5px rgba(255, 255, 255, 0.5),
-    0 0 10px rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.28);
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Base styles for the two custom cursor elements. */
-.cursor-moon,
-.cursor-glow {
-  position: fixed;
-  border-radius: 50%;
-  /* This is crucial so you can click on elements behind the cursor */
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
+main > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
-
-/* The smaller, solid part of the custom cursor. */
-.cursor-moon {
-  width: 20px;
-  height: 20px;
-  background-color: #F0C420;
-  box-shadow: 0 0 0 0 white; /* Initial state for transition */
-}
-
-/* When the cursor is over a nav link, this class is added via JavaScript to create a crescent shape. */
-.cursor-moon.crescent {
-  background-color: transparent;
-  box-shadow: -7px 7px 0 -2px #F0C420; /* Creates the crescent shape */
-}
-
-/* The larger, blurred part of the custom cursor that creates a glow effect. */
-.cursor-glow {
-  width: 100px;
-  height: 100px;
-  background-color: #a9924614;
-  /* The blur creates the soft glow */
-  filter: blur(20px);
-}
-
-/* This ruleset is currently empty and has no effect. 
-   The logic to change the cursor's appearance is handled in App.jsx by adding/removing the 'crescent' class.
-   This CSS selector also wouldn't work as intended because the cursor elements are not siblings of the `a` or `button` tags in the HTML structure. */
-a:hover ~ .cursor-moon,
-button:hover ~ .cursor-moon {}
 
 /* A general-purpose class for sections that should take up the full viewport height. */
 .placeholder-section {
@@ -100,10 +62,10 @@ button:hover ~ .cursor-moon {}
   min-height: 100vh;
   height: auto;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: clamp(4rem, 14vh, 7rem);  
-  padding: clamp(4rem, 8vh, 6rem) 2rem clamp(2rem, 6vh, 4rem);
+  gap: clamp(4.5rem, 16vh, 8rem);
+  padding: clamp(5rem, 10vh, 6.5rem) 2rem clamp(2rem, 6vh, 4rem);
   box-sizing: border-box;
 }
 
@@ -113,6 +75,7 @@ button:hover ~ .cursor-moon {}
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  transform: translateY(60px);
 }
 
 /* On smaller screens (like tablets and phones), stack the home section content vertically. */
@@ -124,12 +87,13 @@ button:hover ~ .cursor-moon {}
 
   .about-hero-layout {
     flex-direction: column;
+    transform: translateY(30px);
   }
 }
 
 /* The main content container within the home section. */
 .home-main-content {
-  width: min(100%, 920px);
+  width: min(100%, 820px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,34 +106,46 @@ button:hover ~ .cursor-moon {}
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 0;
 }
 
 .profile-name-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  transform: translateY(18px);
+}
+
+.profile-heading {
+  text-align: left;
 }
 
 .profile-heading h1 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.65rem;
+  font-size: clamp(2.35rem, 5vw, 3.25rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: 0;
 }
 
 .profile-heading p {
-  color: var(--text-h);
+  color: var(--text);
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  line-height: 1.45;
 }
 
 /* Container for the social media icons. */
 .social-icons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.15rem;
   margin-top: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* Styling for individual social media icon links. */
 .social-icons a {
-  color: var(--text);
+  color: var(--text-h, #ffffff);;
   transition: color 0.3s, transform 0.3s;
 }
 
@@ -180,8 +156,8 @@ button:hover ~ .cursor-moon {}
 }
 /* The circular container for the profile picture. */
 .profile-picture-box {
-  width: 150px;
-  height: 150px;
+  width: clamp(118px, 14vw, 148px);
+  height: clamp(118px, 14vw, 148px);
   border-radius: 50%; /* This makes the container a circle */
   overflow: hidden; /* This crops the image to the container's shape */
   flex: 0 0 auto;
@@ -196,7 +172,7 @@ button:hover ~ .cursor-moon {}
   height: 100%;
   object-fit: cover; /* This ensures the image covers the box without distortion */
   object-position: center 25%; /* This adjusts the image to show the upper part (chest to head) */
-  transform: scale(1.5); /* Zooms the image to 150% of its size */
+  transform: scale(1); /* Zooms the image to 150% of its size */
 }
 
 /* This media query is empty and can be safely removed. */
@@ -205,11 +181,11 @@ button:hover ~ .cursor-moon {}
 }
 
 .about-me-text {
-  max-width: 760px;
-  margin-top: 1.5rem;
+  width: min(100%, 680px);
+  margin-top: clamp(1.35rem, 4vh, 2rem);
   color: var(--text);
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+  line-height: 1.75;
   text-align: center;
 }
 
@@ -244,6 +220,25 @@ button:hover ~ .cursor-moon {}
   .profile-name-row {
     flex-direction: column;
     gap: 1.25rem;
+    transform: translateY(10px);
+  }
+
+  .profile-heading {
+    text-align: center;
+  }
+
+  .profile-heading h1 {
+    font-size: clamp(2.1rem, 10vw, 3rem);
+    line-height: 1;
+  }
+
+  .profile-heading p {
+    max-width: 20rem;
+    margin: 0 auto;
+  }
+
+  .social-icons {
+    justify-content: center;
   }
 
   .home-buttons {
@@ -256,14 +251,17 @@ button:hover ~ .cursor-moon {}
 }
 .home-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: clamp(1.35rem, 3.5vh, 1.85rem);
 }
 
 /* Styling for the "View Projects" and "Download my CV" buttons. */
 .counter {
-  font-size: 16px;
-  padding: 5px 10px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  padding: 0.5rem 0.8rem;
   border-radius: 5px;
   color: var(--accent);
   background: var(--accent-bg);
@@ -539,6 +537,74 @@ button:hover ~ .cursor-moon {}
 .project-card:hover {
   transform: translateY(-5px); /* Lifts the card slightly on hover */
   box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+.techstack-section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.techstack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.techstack-card {
+  min-height: 180px;
+  padding: 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background-color: rgba(44, 45, 51, 0.36);
+  text-align: left;
+}
+
+.techstack-card h3 {
+  margin: 0 0 1rem;
+  color: var(--text-h);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.techstack-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.techstack-card li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  color: var(--text-h);
+  background-color: var(--accent-bg);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.techstack-card li svg {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+}
+
+.experience-section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 /* Styles for the main contact section container */

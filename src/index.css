@@ -32,6 +32,14 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,7 +71,6 @@ body {
   background-repeat: no-repeat;
   /* This makes the background stay in place while you scroll */
   background-attachment: fixed;
-  cursor: none;
 }
 
 #root {
@@ -104,11 +111,6 @@ h2 {
 }
 p {
   margin: 0;
-}
-
-/* Ensure the custom cursor is used everywhere */
-a, button {
-  cursor: none;
 }
 
 code,

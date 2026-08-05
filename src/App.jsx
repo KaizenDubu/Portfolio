@@ -1,35 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import AboutMe from './AboutMe.jsx';
 import Project from './Project.jsx';
+import TechStack from './TechStack.jsx';
 import Experience from './Experience.jsx';
 import Contact from './Contact.jsx';
 
-const sections = ['home', 'projects', 'experience', 'contact'];
+const sections = ['home', 'projects', 'techstack', 'experience', 'contact'];
 
 // This object maps the section ID to the text you want to display in the navigation.
 const sectionDisplayNames = {
-  home: 'About Me',
+  home: 'Home',
   projects: 'Projects',
+  techstack: 'Tech Stack',
   experience: 'Experience',
   contact: 'Contact',
 };
 
 function App() {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [isNavHover, setIsNavHover] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    };
-    const handleMouseOver = (e) => {
-      setIsNavHover(!!e.target.closest('.nav-link'));
-    };
-    const handleMouseOut = (e) => {
-      setIsNavHover(!!e.target.closest('.nav-link') && false);
-    };
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       let currentSection = 'home';
@@ -42,23 +33,16 @@ function App() {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    document.body.addEventListener('mouseover', handleMouseOver);
-    document.body.addEventListener('mouseout', handleMouseOut);
+    handleScroll();
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
-      document.body.removeEventListener('mouseover', handleMouseOver);
-      document.body.removeEventListener('mouseout', handleMouseOut);
     };
   }, []);
 
   return (
     <>
-      <div className="cursor-glow" style={{ left: `${position.x}px`, top: `${position.y}px` }} />
-      <div className={`cursor-moon ${isNavHover ? 'crescent' : ''}`} style={{ left: `${position.x}px`, top: `${position.y}px` }} />
       <header className="header">
         <nav className="nav">
           <ul className="nav-list">
@@ -78,6 +62,7 @@ function App() {
       <main>
         <AboutMe />
         <Project />
+        <TechStack />
         <Experience />
         <Contact />
       </main>
