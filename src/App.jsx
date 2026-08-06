@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { FaMoon, FaSun } from 'react-icons/fa';
 import AboutMe from './AboutMe.jsx';
 import Project from './Project.jsx';
 import TechStack from './TechStack.jsx';
@@ -19,6 +20,20 @@ const sectionDisplayNames = {
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +57,8 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className={`app-shell theme-${theme}`}>
+      <div className="theme-background" aria-hidden="true" />
       <header className="header">
         <nav className="nav">
           <ul className="nav-list">
@@ -58,6 +74,16 @@ function App() {
             ))}
           </ul>
         </nav>
+        <button
+          className="theme-toggle"
+          type="button"
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          aria-pressed={theme === 'light'}
+          onClick={() => setTheme(currentTheme => (currentTheme === 'dark' ? 'light' : 'dark'))}
+        >
+          <FaSun className={theme === 'light' ? 'theme-toggle-icon active' : 'theme-toggle-icon'} aria-hidden="true" />
+          <FaMoon className={theme === 'dark' ? 'theme-toggle-icon active' : 'theme-toggle-icon'} aria-hidden="true" />
+        </button>
       </header>
       <main>
         <AboutMe />
@@ -66,7 +92,7 @@ function App() {
         <Experience />
         <Contact />
       </main>
-    </>
+    </div>
   )
 }
 

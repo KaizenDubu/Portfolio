@@ -153,6 +153,12 @@
   }
 }
 
+@media (min-width: 521px) and (max-width: 768px) {
+  .accordion-gallery {
+    height: 360px !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ag-panel,
   .ag-panel__image,

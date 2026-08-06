@@ -8,6 +8,14 @@
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
+  --nav-active-bg: rgba(8, 6, 13, 0.08);
+  --nav-active-border: rgba(8, 6, 13, 0.18);
+  --card-bg: rgba(255, 255, 255, 0.58);
+  --card-border: rgba(8, 6, 13, 0.12);
+  --card-body-bg: rgba(255, 255, 255, 0.46);
+  --image-placeholder-bg: linear-gradient(135deg, rgba(8, 6, 13, 0.08), rgba(8, 6, 13, 0.02)), rgba(255, 255, 255, 0.58);
+  --image-placeholder-text: rgba(8, 6, 13, 0.62);
+  --logo-color: #08060d;
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -53,6 +61,14 @@ html {
     --accent-bg: rgba(210, 210, 210, 0.15);
     --accent-border: rgba(255, 255, 255, 0.812);
     --social-bg: rgba(47, 48, 58, 0.5);
+    --nav-active-bg: rgba(255, 255, 255, 0.12);
+    --nav-active-border: rgba(255, 255, 255, 0.28);
+    --card-bg: rgba(44, 45, 51, 0.36);
+    --card-border: rgba(255, 255, 255, 0.14);
+    --card-body-bg: rgba(10, 7, 19, 0.42);
+    --image-placeholder-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)), rgba(10, 7, 19, 0.72);
+    --image-placeholder-text: rgba(255, 255, 255, 0.64);
+    --logo-color: #ffffff;
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
@@ -60,6 +76,52 @@ html {
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
+}
+
+:root[data-theme='light'] {
+  --text: #332d3c;
+  --text-h: #08060d;
+  --bg: #fbf8f1;
+  --border: rgba(8, 6, 13, 0.16);
+  --code-bg: rgba(255, 255, 255, 0.62);
+  --accent: #4d2a7a;
+  --accent-bg: rgba(77, 42, 122, 0.1);
+  --accent-border: rgba(77, 42, 122, 0.36);
+  --social-bg: rgba(255, 255, 255, 0.52);
+  --nav-active-bg: rgba(8, 6, 13, 0.08);
+  --nav-active-border: rgba(8, 6, 13, 0.18);
+  --card-bg: rgba(255, 255, 255, 0.58);
+  --card-border: rgba(8, 6, 13, 0.12);
+  --card-body-bg: rgba(255, 255, 255, 0.46);
+  --image-placeholder-bg: linear-gradient(135deg, rgba(8, 6, 13, 0.08), rgba(8, 6, 13, 0.02)), rgba(255, 255, 255, 0.58);
+  --image-placeholder-text: rgba(8, 6, 13, 0.62);
+  --logo-color: #08060d;
+  --shadow:
+    rgba(31, 24, 44, 0.14) 0 12px 24px -12px, rgba(31, 24, 44, 0.08) 0 6px 12px -8px;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #ececec;
+  --code-bg: #9295ad;
+  --accent: #ffffff;
+  --accent-bg: rgba(210, 210, 210, 0.15);
+  --accent-border: rgba(255, 255, 255, 0.812);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --nav-active-bg: rgba(255, 255, 255, 0.12);
+  --nav-active-border: rgba(255, 255, 255, 0.28);
+  --card-bg: rgba(44, 45, 51, 0.36);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --card-body-bg: rgba(10, 7, 19, 0.42);
+  --image-placeholder-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)), rgba(10, 7, 19, 0.72);
+  --image-placeholder-text: rgba(255, 255, 255, 0.64);
+  --logo-color: #ffffff;
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  color-scheme: dark;
 }
 
 body {
@@ -71,6 +133,14 @@ body {
   background-repeat: no-repeat;
   /* This makes the background stay in place while you scroll */
   background-attachment: fixed;
+  background-color: var(--bg);
+  transition: background-color 0.45s ease, color 0.35s ease;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 #root {
