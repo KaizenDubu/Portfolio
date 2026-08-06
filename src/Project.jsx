@@ -1,5 +1,15 @@
-import { useState } from 'react';
-import { FaExternalLinkAlt, FaGithub, FaImage, FaInfoCircle } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { FaDatabase, FaExternalLinkAlt, FaGithub, FaImage, FaInfoCircle, FaJava, FaServer, FaTimes } from 'react-icons/fa';
+import {
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiReact,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from 'react-icons/si';
 import offlineLmsImage from './assets/Projects/Screenshot 2026-08-06 160824.png';
 import offlineLmsSecondImage from './assets/Projects/Screenshot 2026-08-06 173406.png';
 import jobTrackerImage from './assets/Projects/Screenshot 2026-08-06 171126.png';
@@ -11,16 +21,58 @@ const projects = [
   {
     title: 'Offline LMS (2026)',
     images: [offlineLmsSecondImage, offlineLmsImage],
+    summary:
+      'A learning platform made for classrooms or labs that need to work even without a reliable internet connection.',
+    highlights: [
+      'Supports student and teacher accounts with controlled access.',
+      'Organizes courses, lessons, and assessments in one local system.',
+      'Tested in a lab setup with around 15 users connected through a local network.',
+    ],
+    techs: [
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Node.js', icon: SiNodedotjs },
+      { name: 'REST APIs', icon: FaServer },
+      { name: 'SQL', icon: FaDatabase },
+    ],
   },
   {
     title: 'AI Powered Job Tracker',
     images: [jobTrackerImage, jobTrackerSecondImage],
+    demo: 'https://hunt-buddy.vercel.app/login',
     code: 'https://github.com/KaizenDubu/HUNT-BUDDY-AI-Job-Application-Tracker',
+    summary:
+      'A web app that helps job seekers save applications, track progress, and use AI to pull useful details from job posts.',
+    highlights: [
+      'Lets users manage job applications in a clean dashboard.',
+      'Uses AI-assisted extraction to reduce manual typing from job listings.',
+      'Includes secure sign-in, saved records, and a cloud-hosted live demo.',
+    ],
+    techs: [
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Tailwind', icon: SiTailwindcss },
+      { name: 'Supabase', icon: SiSupabase },
+      { name: 'Vercel', icon: SiVercel },
+    ],
   },
   {
     title: 'USCERT I.T.C.H. (INVENTORY TRACKING AND CHECKING HUB) ',
     images: [uscertLoginImage, uscertDashboardImage],
     code: 'https://github.com/KaizenDubu/USCERT-I.T.C.H.',
+    summary:
+      'An inventory tracking system built to make item records, transactions, and admin access easier to manage.',
+    highlights: [
+      'Tracks inventory changes and keeps records in a database.',
+      'Adds secure admin access for managing important data.',
+      'Improves traceability by logging transactions in one central place.',
+    ],
+    techs: [
+      { name: 'Java', icon: FaJava },
+      { name: 'MySQL', icon: SiMysql },
+      { name: 'Database', icon: FaDatabase },
+    ],
   },
 ];
 
@@ -72,7 +124,81 @@ function ProjectImageCarousel({ images = [], title }) {
   );
 }
 
+function ProjectDetailsModal({ project, onClose }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div className="project-details-backdrop" role="presentation" onClick={onClose}>
+      <article
+        className="project-details-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-details-title"
+        onClick={event => event.stopPropagation()}
+      >
+        <button className="project-details-close" type="button" aria-label="Close project details" onClick={onClose}>
+          <FaTimes aria-hidden="true" />
+        </button>
+        <p className="project-details-label">Project Details</p>
+        <h3 id="project-details-title">{project.title}</h3>
+        <p className="project-details-summary">{project.summary}</p>
+
+        <ul className="project-details-list">
+          {project.highlights.map(highlight => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
+
+        <div className="project-details-tech" aria-label={`${project.title} technologies`}>
+          {project.techs.map(tech => {
+            const TechIcon = tech.icon;
+
+            return (
+              <span className="project-details-tech-chip" key={tech.name}>
+                <TechIcon aria-hidden="true" />
+                {tech.name}
+              </span>
+            );
+          })}
+        </div>
+
+        <div className="project-details-actions">
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noreferrer noopener">
+              <FaExternalLinkAlt aria-hidden="true" />
+              Demo
+            </a>
+          )}
+          {project.code && (
+            <a href={project.code} target="_blank" rel="noreferrer noopener">
+              <FaGithub aria-hidden="true" />
+              Code
+            </a>
+          )}
+        </div>
+      </article>
+    </div>
+  );
+}
+
 function Project() {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     <section id="projects" className="projects-section">
       <div className="projects-header">
@@ -94,14 +220,27 @@ function Project() {
               {project.type && <p className="project-card-type">{project.type}</p>}
               <h3>{project.title}</h3>
               <div className="project-card-actions" aria-label={`${project.title} actions`}>
-                <button type="button" aria-label={`View details for ${project.title}`} title="View details">
+                <button
+                  type="button"
+                  aria-label={`View details for ${project.title}`}
+                  title="View details"
+                  onClick={() => setSelectedProject(project)}
+                >
                   <FaInfoCircle aria-hidden="true" />
                   <span>View Details</span>
                 </button>
-                <button type="button" aria-label={`Open demo for ${project.title}`} title="Demo">
+                <a
+                  className={`project-action-link${project.demo ? '' : ' project-action-link--disabled'}`}
+                  href={project.demo || undefined}
+                  target={project.demo ? '_blank' : undefined}
+                  rel={project.demo ? 'noreferrer noopener' : undefined}
+                  aria-label={`Open demo for ${project.title}`}
+                  aria-disabled={!project.demo}
+                  title="Demo"
+                >
                   <FaExternalLinkAlt aria-hidden="true" />
                   <span>Demo</span>
-                </button>
+                </a>
                 <a
                   className={`project-action-link${project.code ? '' : ' project-action-link--disabled'}`}
                   href={project.code || undefined}
@@ -119,6 +258,9 @@ function Project() {
           </article>
         ))}
       </div>
+      {selectedProject && (
+        <ProjectDetailsModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
     </section>
   );
 }
