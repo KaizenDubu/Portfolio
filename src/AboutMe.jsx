@@ -145,7 +145,7 @@ function AboutMe() {
             <p className="about-me-text">I am a Computer Engineering graduate from the University of San Carlos based in Cebu, Philippines. I build practical software solutions involving full-stack development, database-backed applications, automation systems, and AI-assisted tools. </p>
             <div className="home-buttons">
               <a href="#projects" className="counter">View Projects</a>
-              <a href="/Cabang_Resume.pdf" target="_blank" rel="noreferrer noopener" className="counter">View CV</a>
+              <a href="/Cabang_Resume.pdf" target="_blank" rel="noreferrer noopener" className="counter">View my Resume</a>
             </div>
           </div>
         </div>
