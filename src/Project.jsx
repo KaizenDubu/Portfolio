@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaDatabase, FaExternalLinkAlt, FaGithub, FaImage, FaInfoCircle, FaJava, FaServer, FaTimes } from 'react-icons/fa';
 import {
   SiMysql,
@@ -78,6 +78,10 @@ const projects = [
 
 function ProjectImageCarousel({ images = [], title }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const latestDragOffset = useRef(0);
   const hasImages = images.length > 0;
   const hasMultipleImages = images.length > 1;
 
@@ -90,17 +94,86 @@ function ProjectImageCarousel({ images = [], title }) {
     );
   }
 
+  const showPreviousImage = () => {
+    setActiveImage(current => (current - 1 + images.length) % images.length);
+  };
+
   const showNextImage = () => {
-    if (hasMultipleImages) {
-      setActiveImage(current => (current + 1) % images.length);
+    setActiveImage(current => (current + 1) % images.length);
+  };
+
+  const handlePointerDown = event => {
+    if (!hasMultipleImages || event.button > 0) {
+      return;
     }
+
+    dragStartX.current = event.clientX;
+    latestDragOffset.current = 0;
+    setIsDragging(true);
+    setDragOffset(0);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = event => {
+    if (!isDragging) {
+      return;
+    }
+
+    const nextOffset = event.clientX - dragStartX.current;
+    latestDragOffset.current = nextOffset;
+    setDragOffset(nextOffset);
+  };
+
+  const finishDrag = event => {
+    if (!isDragging) {
+      return;
+    }
+
+    const swipeThreshold = 42;
+    const finalOffset = latestDragOffset.current;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (Math.abs(finalOffset) > swipeThreshold) {
+      if (finalOffset < 0) {
+        showNextImage();
+      } else {
+        showPreviousImage();
+      }
+    }
+
+    latestDragOffset.current = 0;
+    setIsDragging(false);
+    setDragOffset(0);
   };
 
   return (
-    <div className="project-carousel" onClick={showNextImage} role="group" aria-label={`${title} image carousel`}>
-      <div className="project-carousel-track" style={{ transform: `translateX(-${activeImage * 100}%)` }}>
+    <div
+      className={`project-carousel${isDragging ? ' is-dragging' : ''}`}
+      role="group"
+      aria-label={`${title} image carousel`}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={finishDrag}
+      onPointerCancel={finishDrag}
+    >
+      <div
+        className="project-carousel-track"
+        style={{
+          transform: `translateX(calc(-${activeImage * 100}% + ${dragOffset}px))`,
+          transition: isDragging ? 'none' : undefined,
+        }}
+      >
         {images.map((image, index) => (
-          <img className="project-carousel-image" src={image} alt={`${title} preview ${index + 1}`} key={image} />
+          <img
+            className="project-carousel-image"
+            src={image}
+            alt={`${title} preview ${index + 1}`}
+            key={image}
+            draggable="false"
+          />
         ))}
       </div>
       {hasMultipleImages && (
