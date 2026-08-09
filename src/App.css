@@ -195,9 +195,9 @@ main > section {
 .profile-heading h1 {
   margin: 0 0 0.65rem;
   font-size: clamp(2.35rem, 5vw, 3.25rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 0.95;
-  letter-spacing: 0;
+  letter-spacing: -0.03em;
 }
 
 .profile-heading p {
@@ -554,8 +554,10 @@ main > section {
 }
 
 .portfolio-title {
-  font-family: 'Times New Roman', Times, serif; /* Sets the font as requested */
+  font-family: var(--heading);
   font-size: 3rem; /* Makes the title larger */
+  font-weight: 700;
+  letter-spacing: -0.04em;
   margin: 0;
   color: var(--text-h);
 }
@@ -1116,8 +1118,10 @@ main > section {
 
 /* Styling for the "Get in Touch" title inside the form */
 .form-title {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: var(--heading);
   font-size: 40px; /* Matches the main .portfolio-title size */
+  font-weight: 700;
+  letter-spacing: -0.04em;
   text-align: left;
   margin: 0 0 -10px; /* Space0; /* Resets default margin and adds space below */
   line-height: 1;
