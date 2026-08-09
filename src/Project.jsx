@@ -19,7 +19,7 @@ import uscertDashboardImage from './assets/Projects/Screenshot 2026-08-06 172538
 
 const projects = [
   {
-    title: 'Offline LMS (2026)',
+    title: 'Offline LMS (Thesis)',
     images: [offlineLmsSecondImage, offlineLmsImage],
     demo: 'https://drive.google.com/file/d/19EeN4pS1ntN-zmTz12S0FCoCO5P_seru/view?usp=sharing',
     summary:
@@ -40,7 +40,7 @@ const projects = [
   {
     title: 'AI Powered Job Tracker',
     images: [jobTrackerImage, jobTrackerSecondImage],
-    demo: 'https://hunt-buddy.vercel.app/login',
+    demo: 'https://hunt-buddy.vercel.app/',
     code: 'https://github.com/KaizenDubu/HUNT-BUDDY-AI-Job-Application-Tracker',
     summary:
       'A web app that helps job seekers save applications, track progress, and use AI to pull useful details from job posts.',
