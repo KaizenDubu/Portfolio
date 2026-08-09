@@ -21,6 +21,7 @@ const projects = [
   {
     title: 'Offline LMS (2026)',
     images: [offlineLmsSecondImage, offlineLmsImage],
+    demo: 'https://drive.google.com/file/d/1X7minklBWSRj55F3w4knV_DonrIOWRtZ/view',
     summary:
       'A learning platform made for classrooms or labs that need to work even without a reliable internet connection.',
     highlights: [
