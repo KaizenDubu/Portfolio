@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const contactFormEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 function Contact() {
   const [formStatus, setFormStatus] = useState({ type: 'idle', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!formStatus.message) {
+      return undefined;
+    }
+
+    const clearStatusTimer = setTimeout(() => {
+      setFormStatus({ type: 'idle', message: '' });
+    }, 3000);
+
+    return () => {
+      clearTimeout(clearStatusTimer);
+    };
+  }, [formStatus.message]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -107,14 +121,17 @@ function Contact() {
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
-            {formStatus.message && (
-              <p className={`form-status form-status--${formStatus.type}`} role="status">
-                {formStatus.message}
-              </p>
-            )}
           </form>
         </div>
       </div>
+      {formStatus.message && (
+        <p
+          className={`form-toast form-toast--${formStatus.type}`}
+          role={formStatus.type === 'error' ? 'alert' : 'status'}
+        >
+          {formStatus.message}
+        </p>
+      )}
     </section>
   );
 }
