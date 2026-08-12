@@ -1,6 +1,56 @@
-import React from 'react';
+import { useState } from 'react';
+
+const contactFormEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
 function Contact() {
+  const [formStatus, setFormStatus] = useState({ type: 'idle', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    if (!contactFormEndpoint) {
+      setFormStatus({
+        type: 'error',
+        message: 'Contact form is not configured yet. Add your Formspree endpoint first.',
+      });
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setIsSubmitting(true);
+    setFormStatus({ type: 'idle', message: '' });
+
+    try {
+      const response = await fetch(contactFormEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      form.reset();
+      setFormStatus({
+        type: 'success',
+        message: 'Message sent. I will get back to you soon.',
+      });
+    } catch {
+      setFormStatus({
+        type: 'error',
+        message: 'Message failed to send. Please email me directly instead.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="contact-section">
       <div className="projects-header">
@@ -32,28 +82,36 @@ function Contact() {
 
         {/* Right Column: Contact Form */}
         <div className="contact-form-container">
-          <form className="contact-form">
+          <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group-full">
               <h1 className="form-title">Get in Touch</h1>
             </div>
+            <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" className="form-honeypot" />
             <div className="form-group">
-              <input type="text" id="name" name="name" placeholder="Name" />
+              <input type="text" id="name" name="name" placeholder="Name" required />
             </div>
             <div className="form-group">
-              <input type="email" id="email" name="email" placeholder="Email" />
+              <input type="email" id="email" name="email" placeholder="Email" required />
             </div>
             <div className="form-group">
               <input type="tel" id="phone" name="phone" placeholder="Your Phone (Optional)" />
             </div>
             <div className="form-group">
-              <input type="text" id="subject" name="subject" placeholder="Subject" />
+              <input type="text" id="subject" name="subject" placeholder="Subject" required />
             </div>
             <div className="form-group form-group-full">
-              <textarea id="message" name="message" rows="5" placeholder="Your message here..."></textarea>
+              <textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea>
             </div>
             <div className="form-group-full">
-              <button type="submit" className="submit-button">Send Message</button>
+              <button type="submit" className="submit-button" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
             </div>
+            {formStatus.message && (
+              <p className={`form-status form-status--${formStatus.type}`} role="status">
+                {formStatus.message}
+              </p>
+            )}
           </form>
         </div>
       </div>
